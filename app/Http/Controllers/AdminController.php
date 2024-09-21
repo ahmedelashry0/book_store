@@ -19,6 +19,11 @@ class AdminController extends Controller
         return redirect()->back();
     }
 
+    public function editBook($id)
+    {
+        $book = Book::findOrFail($id);
+        return view("admin.edit",compact('book'));
+    }
 
     public function updateBook(Request $request, $id) {
         $book = Book::find($id);

@@ -26,8 +26,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::middleware(['auth', 'admin'])->group(function() {
     Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
-    Route::post('/admin/book/add', [AdminController::class, 'addBook']);
-    Route::post('/admin/book/update/{id}', [AdminController::class, 'updateBook']);
+    Route::post('/admin/book/add', [AdminController::class, 'addBook'])->name('admin.add');
+    Route::get('/admin/book/edit/{id}', [AdminController::class, 'editBook'])->name("admin.edit");
+    Route::post('/admin/book/update/{id}', [AdminController::class, 'updateBook'])->name("admin.update");
     Route::post('/admin/book/delete/{id}', [AdminController::class, 'deleteBook']);
     Route::get('/admin/student/{id}', [AdminController::class, 'viewStudent']);
 });
