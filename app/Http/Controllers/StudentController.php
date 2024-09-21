@@ -26,13 +26,23 @@ class StudentController extends Controller
     public function borrowBook($id)
     {
         $book = Book::findOrFail($id);
+        $borrow = Borrow::where('book_id',$id)->first();
 
         if ($book->quantity > 0) {
-            Borrow::create([
-                'user_id' => auth()->user()->id,
-                'book_id' => $id,
-                'borrow_date' => now(),
-            ]);
+            if (!$borrow){
+                Borrow::create([
+                    'user_id' => auth()->user()->id,
+                    'book_id' => $id,
+                    'borrow_date' => now(),
+                ]);
+            }
+            else
+            {
+                $borrow->update([
+                    'borrow_date' => now(),
+                    'return_date' => null,
+                ]);
+            }
 
             $book->decrement('quantity');
         }
