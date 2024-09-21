@@ -11,7 +11,14 @@ class StudentController extends Controller
     // Display available books for borrowing
     public function index()
     {
-        $books = Book::all();
+        $books = Book::where('quantity', '>', 0)
+            ->whereNotIn('id', function($query) {
+                $query->select('book_id')
+                    ->from('borrows')
+                    ->where('user_id', auth()->id())
+                    ->whereNull('return_date');
+            })
+            ->get();;
         return view('students.books', compact('books'));
     }
 
@@ -48,7 +55,7 @@ class StudentController extends Controller
 
         Book::findOrFail($id)->increment('quantity');
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Book returned successfully!');
     }
 
     // View profile
