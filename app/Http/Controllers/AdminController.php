@@ -10,8 +10,23 @@ class AdminController extends Controller
 {
     public function index() {
         $books = Book::all();
-        $users = User::where('is_admin', false)->get();
-        return view('admin.dashboard', compact('books', 'users'));
+        return view('admin.dashboard', compact('books'));
+    }
+    public function users(Request $request): \Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\View|\Illuminate\Contracts\Foundation\Application
+    {
+        // Check if the search query exists
+        $query = $request->input('search');
+
+        if ($query) {
+            // If the search query is present, find the user by ID
+            $users = User::where('id', $query)->get();
+        } else {
+            // Otherwise, retrieve all users
+            $users = User::all();
+        }
+
+        // Return the view with the user data
+        return view('admin.users', compact('users'));
     }
 
     public function addBook(Request $request) {
@@ -35,9 +50,13 @@ class AdminController extends Controller
         Book::destroy($id);
         return redirect()->back();
     }
+    public function deleteUser($id) {
+        User::destroy($id);
+        return redirect()->back();
+    }
 
     public function viewStudent($id) {
-        $student = User::find($id);
-        return view('admin.student', compact('student'));
+        $user = User::find($id);
+        return view('admin.student', compact('user'));
     }
 }
