@@ -36,4 +36,8 @@ class StudentController extends Controller
         Book::find($id)->increment('quantity');
         return redirect()->back();
     }
+    public function profile()
+    {
+        return view('student.profile');
+    }
 }

@@ -15,10 +15,9 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(!auth()->check() || !auth()->user()->is_admin)
-        {
-            abort(403);
+        if (auth()->check() && auth()->user()->is_admin) {
+            return $next($request);
         }
-        return $next($request);
+        return redirect('/home');
     }
 }

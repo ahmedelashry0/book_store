@@ -39,7 +39,7 @@ Route::middleware(['auth', 'admin'])->group(function() {
 });
 
 Route::middleware('auth')->group(function() {
-    Route::get('/books', [StudentController::class, 'index'])->name('student.dashboard');
+    Route::get('/books', [StudentController::class, 'index']);
     Route::post('/book/borrow/{id}', [StudentController::class, 'borrowBook']);
     Route::post('/book/return/{id}', [StudentController::class, 'returnBook']);
 });
