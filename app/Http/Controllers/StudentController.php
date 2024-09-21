@@ -10,7 +10,7 @@ class StudentController extends Controller
 {
     public function index() {
         $books = Book::all();
-        return view('student.books', compact('books'));
+        return view('students.books', compact('books'));
     }
 
     // Borrow a book
