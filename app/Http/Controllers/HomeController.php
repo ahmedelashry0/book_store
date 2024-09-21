@@ -21,18 +21,18 @@ class HomeController extends Controller
     /**
      * Show the application dashboard.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function index()
     {
         if (Auth::user()->is_admin == 1)
         {
             $books = Book::all();
-            return view('admin.dashboard',compact('books'));
+            return to_route('admin.dashboard')->with('books', $books);
         }
         else{
             $books = Book::all();
-            return view('students.books',compact('books'));
+            return to_route('student.dashboard')->with('books', $books);
         }
     }
 }
