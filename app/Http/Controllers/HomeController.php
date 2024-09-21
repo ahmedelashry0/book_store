@@ -21,7 +21,7 @@ class HomeController extends Controller
     /**
      * Show the application dashboard.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function index()
     {
@@ -32,7 +32,7 @@ class HomeController extends Controller
         }
         else{
             $books = Book::all();
-            return to_route('student.dashboard')->with('books', $books);
+            return to_route('students.dashboard')->with('books', $books);
         }
     }
 }
