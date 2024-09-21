@@ -8,36 +8,73 @@ use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
-    public function index() {
+    // Display available books for borrowing
+    public function index()
+    {
         $books = Book::all();
         return view('students.books', compact('books'));
     }
 
     // Borrow a book
-    public function borrowBook($id) {
-        $book = Book::find($id);
+    public function borrowBook($id)
+    {
+        $book = Book::findOrFail($id);
+
         if ($book->quantity > 0) {
             Borrow::create([
                 'user_id' => auth()->user()->id,
                 'book_id' => $id,
                 'borrow_date' => now(),
             ]);
+
             $book->decrement('quantity');
         }
+
         return redirect()->back();
     }
 
+    // View borrowed books
+    public function borrowedBooks()
+    {
+        $borrowedBooks = Borrow::where('user_id', auth()->id())->with('book')->get();
+        return view('students.borrowed_books', compact('borrowedBooks'));
+    }
+
     // Return a book
-    public function returnBook($id) {
-        $borrow = Borrow::where('book_id', $id)
-            ->where('user_id', auth()->user()->id)
-            ->first();
+    public function returnBook($id)
+    {
+        $borrow = Borrow::where('user_id', auth()->id())->where('book_id', $id)->first();
         $borrow->update(['return_date' => now()]);
-        Book::find($id)->increment('quantity');
+
+        Book::findOrFail($id)->increment('quantity');
+
         return redirect()->back();
     }
+
+    // View profile
     public function profile()
     {
-        return view('student.profile');
+        return view('students.profile');
+    }
+
+    // Update profile
+    public function updateProfile(Request $request)
+    {
+        $user = auth()->user();
+
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password ? bcrypt($request->password) : $user->password,
+        ]);
+
+        return redirect()->back()->with('success', 'Profile updated successfully!');
+    }
+
+    // View Book Details
+    public function viewBookDetails($id)
+    {
+        $book = Book::findOrFail($id);
+        return view('students.book_details', compact('book'));
     }
 }

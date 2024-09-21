@@ -54,7 +54,7 @@
                                     <a class="nav-link" href="{{route('student.profile' , auth()->user()->id)}}">View Profile</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{route('students.borrowedBooks' , auth()->user()->id)}}">Borrowed Books</a>
+                                    <a class="nav-link" href="{{route('students.borrowed_books' , auth()->user()->id)}}">Borrowed Books</a>
                                 </li>
                             </ul>
                         @endif

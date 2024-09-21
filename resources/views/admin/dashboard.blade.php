@@ -36,13 +36,13 @@
                 <h3>Add New Book</h3>
                 <form action="{{ route("admin.add") }}" method="POST">
                     @csrf
-                    <div class="form-group">
+                    <div class="form-group mb-3">
                         <input type="text" name="title" class="form-control" placeholder="Book Title" required>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group mb-3">
                         <input type="text" name="author" class="form-control" placeholder="Author" required>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group mb-3">
                         <input type="number" name="quantity" class="form-control" placeholder="Quantity" required>
                     </div>
                     <button type="submit" class="btn btn-success">Add Book</button>
