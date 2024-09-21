@@ -58,7 +58,6 @@
                                 </li>
                             </ul>
                         @endif
-
                     @endif
 
                     <!-- Right Side Of Navbar -->

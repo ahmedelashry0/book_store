@@ -17,9 +17,9 @@ class BookFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => $this->faker->sentence(3), // Generates a random book title with 3 words
-            'author' => $this->faker->name, // Generates a random author name
-            'quantity' => $this->faker->numberBetween(1, 20), // Generates a random number for quantity (between 1 and 20)
+            'title' => $this->faker->sentence(3),
+            'author' => $this->faker->name,
+            'quantity' => $this->faker->numberBetween(1, 20),
         ];
     }
 }
