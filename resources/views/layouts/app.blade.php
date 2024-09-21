@@ -37,10 +37,29 @@
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
+                    @if(auth()->user())
+                        @if(\Illuminate\Support\Facades\Auth::user()->is_admin == 1)
+                            <!-- Left Side Of Navbar -->
+                            <ul class="navbar-nav me-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route("admin.users")}}">Users</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route("admin.borrowed_books.index")}}">Borrowed Books</a>
+                                </li>
+                            </ul>
+                        @else
+                            <ul class="navbar-nav me-auto">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('student.profile' , auth()->user()->id)}}">View Profile</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('students.borrowedBooks' , auth()->user()->id)}}">Borrowed Books</a>
+                                </li>
+                            </ul>
+                        @endif
 
-                    </ul>
+                    @endif
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
