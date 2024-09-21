@@ -1,4 +1,3 @@
-<!-- resources/views/admin/student/view.blade.php -->
 @extends('layouts.app')
 
 @section('content')

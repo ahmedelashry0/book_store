@@ -3,7 +3,6 @@
 @section('content')
     <div class="container">
         <h1>Admin Dashboard</h1>
-        <!-- Search Form -->
         <div class="row mb-4">
             <div class="col-md-12">
                 <form action="{{ route('admin.users') }}" method="GET" class="form-inline">
