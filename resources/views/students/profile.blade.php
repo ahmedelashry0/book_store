@@ -4,7 +4,7 @@
     <div class="container">
         <h1 class="mb-4">Your Profile</h1>
 
-        <form action="{{ url('student/profile/update') }}" method="POST">
+        <form action="{{ url('students/profile/update') }}" method="POST">
             @csrf
             <div class="form-group">
                 <label for="name">Name</label>
